@@ -1,0 +1,23 @@
+{% extends 'layout/base.html' %}
+
+{% block container %}
+<div class="form-small">
+    <form action="{{ url_for('fauth.login') }}" method="POST">
+        {{ form.username.label }} 
+        {{ form.username(class="form-control mb-3") }}
+
+        {{ form.password.label }} 
+        {{ form.password(class="form-control mb-3") }}
+
+        {{ form.next() }}
+
+        <input class="btn btn-success float-rigth" type="submit" value="Enviar">
+    </form>
+
+    <script>
+        var params = new URLSearchParams(window.location.search)
+        if(params.has("next"))
+            document.getElementById("next").value = params.get("next")
+    </script>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+<h3>{{ product['name'] }}</h3>
+
+<p>{{ product['category'] }}</p>
+<p>${{ product['price'] }}</p>
+
+<? filtro default: para imprmir un menaje cuando el valor es nulo?>
+<p>Filtro default:{{ product['price'] | default('sin precio', True) }}</p>
+
+<? filtro safe saca el codigo html para que se rederice correctamente?>
+<p>Filtro safe:{{"<h1>Hola mundo</h1>" | safe }}</p>
+
+<? filtro truncate va a cortar el texto seleccionado se reserva 3 caracteres para los ...?>
+<p>Filtro truncate: {{"esta es la decroipcion de un producto bastante bueno" | truncate(5) }}</p>
+
+<?Filtro count te cuenta el numero de caracteres que se encuentran en el string?>
+<p>Filtro count: {{"esta es la decroipcion de un producto bastante bueno" | count }}</p>
+
+<?Filtro float es para convertir cualquier dato a un dato float?>
+<p>Filtro float: {{"70.5" | float }}</p>
+
+<?Filtro int es para convertir cualquier dato a un dato int?>
+<p>Filtro int: {{"70.5" | int }}</p>
+
+<?Filtro round es para definior cuantos caracteres quieren que se muestren despues del punto decimal?>
+<p>Filtro round: {{ 3.141592653 | round(1) }}</p>
+
+<?Filtro join es para convertir un array en texto?>
+<p>Filtro array: {{ ["iPhone", "iPad"] | join(" ,") }}</p>
+
+<?Filtro lengt es para contar la catidad de elementos en un arreglo?>
+<p>Filtro length: {{ ["iPhone", "iPad"] | length }}</p>
+
+<?Filtro json es para convertir objetos en json?>
+<p>Filtro json: {{ {'offer':False, 'price':50.5, 'k':45} | tojson }}</p>
+
+<p>Filtro global custom: {{ 50 | myDouble}}</p>
+
+<p>Filtro local custom: {{ product | iva }}</p>
+
