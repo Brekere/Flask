@@ -6,10 +6,14 @@ class BaseConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     #SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://postgres:asbsistemas@localhost:5432/pyalmacen"
     #SQLALCHEMY_DATABASE_URI = "mssql+pyodbc://DESKTOP-AQ2ALR2/pyalmacen2?driver=ODBC Driver 17 for SQL Server"
-    #SQLALCHEMY_DATABASE_URI = "mssql+pyodbc://WIN-D776HKG3N67/pyalmacen?driver=ODBC Driver 17 for SQL Server"
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://asbsistemas:asbsistemas@192.168.0.24:3306/pyalmacen"
 
-class ProductionConfig(BaseConfig):
+    #SQLALCHEMY_DATABASE_URI = "mysql+pymysql://asbsistemas:asbsistemas@192.168.0.24:3306/pyalmacen"
+    #SQLALCHEMY_DATABASE_URI = "mssql+pymssql://WIN-FM2TI1J54FM/Administrator:ASB.#01.Sofgt@WIN-FM2TI1J54FM/pyalmacen"
+    #SQLALCHEMY_DATABASE_URI = 'mssql+pyodbc://WIN-FM2TI1J54FM/Administrator:ASB.#01.Sofgt@192.168.0.40:1433/pyalmacen'
+    SQLALCHEMY_DATABASE_URI = 'mssql+pymssql://usertest:ASB.#01.Sofgt@WIN-FM2TI1J54FM\Administrator/pyalmacen'
+
+    
+class ProductionConfig(BaseConfig):    
     'Produccion configuracion'
     DEBUG = False
 
