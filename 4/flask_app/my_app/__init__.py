@@ -31,6 +31,11 @@ from my_app.fauth.views import fauth
 from my_app.auth.views import auth
 from my_app.product.category import category
 
+#rest
+from my_app.rest_api.product_api import product_view
+from my_app.rest_api.category_api import category_view
+
+
 # importar las vistas
 app.register_blueprint(product)
 app.register_blueprint(category)
