@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user, logout_user
 from functools import wraps
 
+from flask_cors import CORS
+
 app = Flask(__name__)
 
 app.config.from_object('configuration.DevelopmentConfig')
@@ -12,6 +14,12 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 login_manager.login_view = "fauth.login"
+
+#cors
+
+cors = CORS(app, resources={r"/api/*":{"origins":"http://localhost:8080"}})
+
+#cors
 
 
 def rol_admin_need(f):

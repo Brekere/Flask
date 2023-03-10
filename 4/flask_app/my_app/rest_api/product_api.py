@@ -32,7 +32,6 @@ class ProductApi(MethodView):
         #Validaiones precio
         if not "price" in request.form:
             return sendResJson(None,"Sin parametro precio",403)
-
         try:
             float(request.form['price'])
         except ValueError:
@@ -41,7 +40,6 @@ class ProductApi(MethodView):
         #Validaiones category_id
         if not "category_id" in request.form:
             return sendResJson(None,"Sin parametro categoria",403)
-
         try:
             float(request.form['category_id'])
         except ValueError:
@@ -86,8 +84,6 @@ class ProductApi(MethodView):
         p.price = request.form['price']
         p.category_id = request.form['category_id']
 
-
-
         db.session.add(p)
         db.session.commit()
         
@@ -104,10 +100,12 @@ class ProductApi(MethodView):
 
         return sendResJson(None,"Producto eliminado",403)
 
+
 def productToJson(product: Product):
     return {
                 'id': product.id,
                 'name': product.name,
+                'price': product.price,
                 'category_id': product.category_id,
                 'category': product.category.name,
             }
