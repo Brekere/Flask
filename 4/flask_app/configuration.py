@@ -5,6 +5,8 @@ class BaseConfig(object):
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://postgres:asbsistemas@localhost:5432/pyalmacen"
+    #WTF_CSRF_TIME_LIMIT = 10
+
     #SQLALCHEMY_DATABASE_URI = "mssql+pyodbc://sa/asb?driver=ODBC Driver 17 for SQL Server"
 
     #SQLALCHEMY_DATABASE_URI = "mysql+pymysql://asbsistemas:asbsistemas@192.168.0.24:3306/pyalmacen"

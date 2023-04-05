@@ -1,5 +1,6 @@
 from flask.views import MethodView
 from flask import request
+from werkzeug.exceptions import abort
 from my_app.product.models.product import Product
 from my_app.rest_api.helper.request import sendResJson
 from my_app import app, db
@@ -111,7 +112,21 @@ def productToJson(product: Product):
             }
 
 
-product_view = ProductApi.as_view('product_view')
+#product_view = ProductApi.as_view('product_view')
+
+api_username="admin"
+api_password="12345"
+
+def protect(f):
+    def decorated(*args, **kwargs):
+        auth = request.authorization
+        if api_username == auth.username and api_password == auth.password:
+            return f(*args, **kwargs)
+        return abort(401)
+    return decorated
+
+product_view = protect(ProductApi.as_view('product_view'))
+
 app.add_url_rule('/api/products/',view_func=product_view,methods=['GET','POST'])
 app.add_url_rule('/api/products/<int:id>',view_func=product_view,methods=['GET','DELETE','PUT'])
 

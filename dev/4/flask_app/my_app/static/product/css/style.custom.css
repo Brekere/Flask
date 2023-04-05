@@ -1,0 +1,7 @@
+.list-product .odd{
+    background: #ccc;
+}
+
+/*.list-product .jumbotron:nth-child(odd){
+    background: #ccc;
+}*/

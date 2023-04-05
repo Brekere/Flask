@@ -1,14 +1,17 @@
 # from my_app import app
-from my_app import db, rol_admin_need
+import os
+from my_app import db, rol_admin_need, app, ALLOWED_EXTENSIONS_FILE
 from flask import Blueprint, render_template, request, redirect, url_for, flash, get_flashed_messages
 
 from my_app.product.models.category import Category
+from werkzeug.utils import secure_filename
 from sqlalchemy.sql.expression import not_, or_
 from my_app.product.models.category import CategoryForm
 from flask_login import login_required
 
-category = Blueprint('category', __name__)
+from collections import namedtuple
 
+category = Blueprint('category', __name__)
 
 @category.before_request
 @login_required
@@ -16,6 +19,8 @@ category = Blueprint('category', __name__)
 def constructor():
     pass
 
+def allowed_extensions_file(filename):
+    return '.' in filename and filename.lower().rsplit('.',1)[1] in ALLOWED_EXTENSIONS_FILE
 
 @category.route('/category')
 @category.route('/categories/<int:page>')
@@ -31,10 +36,10 @@ def show(id):
 
 @category.route('/category-create', methods=('GET', 'POST'))
 def create():
-    form = CategoryForm(meta={'csrf': False})
+    form = CategoryForm() #meta={'csrf': False}
     if form.validate_on_submit():
         # Crear un registro
-        p = Category(request.form['name'])
+        p = Category(request.form['name'], request.form['file'])
         db.session.add(p)
         db.session.commit()
         flash("Categoria creada con exito")
@@ -49,22 +54,42 @@ def create():
 @category.route('/category-update/<int:id>', methods=['GET', 'POST'])
 def update(id):
     category = Category.query.get_or_404(id)
-    form = CategoryForm(meta={'csrf': False})
+    
+
+    group = namedtuple('Group',['phoneCode', 'countryCode', 'phone'])
+
+    g1 = group('461','+14', '852741')
+    g2 = group('421','+25', '15852')
+    g3 = group('963','+58', '852')
+
+    phones = {'phone': [g1, g2, g3]}
+
+    form = CategoryForm(data=phones) #meta={'csrf': False}
+
+    del form.phonelist
 
     if request.method == 'GET':
         form.name.data = category.name
+        form.id.data = category.id
 
     if form.validate_on_submit():
         # actualizar un registro
         category.name = form.name.data
+
+        if form.file.data:
+         file = form.file.data
+         if allowed_extensions_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+            category.file = filename
 
         db.session.add(category)
         db.session.commit()
         flash("Categoria actualizada con exito")
         return redirect(url_for('category.update', id=category.id))
 
-        if form.errors:
-            flash(form.errors, 'danger')
+    if form.errors:
+        flash(form.errors, 'danger')
 
     return render_template('category/update.html', category=category, form=form)
 

@@ -1,8 +1,7 @@
-from my_app import db
+from my_app import db, login_manager
 from flask import Blueprint, session, render_template, request, redirect, url_for, flash, get_flashed_messages
 from my_app.auth.model.user import User, LoginForm, RegisterForm
 from flask_login import current_user, login_user, logout_user, login_required
-from my_app import login_manager
 
 fauth = Blueprint('fauth', __name__)
 
@@ -15,7 +14,7 @@ def load_user(user_id):
 @fauth.route('/register', methods=('GET', 'POST'))
 def register():
 
-    form = RegisterForm(meta={'csrf': False})
+    form = RegisterForm() #meta={'csrf': False}
 
     if form.validate_on_submit():
 
@@ -39,10 +38,10 @@ def register():
 def login():
 
     if current_user.is_authenticated:
-        flash(" Ya esta autenticado")
+        flash("Ya esta autenticado")
         return redirect(url_for('product.index'))
 
-    form = LoginForm(meta={'csrf': False})
+    form = LoginForm() #meta={'csrf': False}
 
     if form.validate_on_submit():
 

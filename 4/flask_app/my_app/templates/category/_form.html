@@ -1,3 +1,31 @@
         {{ form.name.label }} 
         {{ form.name(class="form-control mb-3") }}
 
+        {{ form.file.label }} 
+        {{ form.file(class="form-control mb-3") }}
+
+        {{ form.phoneCode.label}}
+        {{ form.phoneCode(class="form-control mb-3") }}
+
+        {{ form.countryCode.label}}
+        {{ form.countryCode(class="form-control mb-3") }}
+
+        {{ form.phone.label}}
+        {{ form.phone(class="form-control mb-3") }}
+
+        {{ form.phoneCode2.label}}
+        {{ form.phoneCode2(class="form-control mb-3") }}
+
+        {% if form.phonelist %}
+                {{ form.phonelist.label}}
+                {{ form.phonelist(class="form-control mb-3") }}
+        {% endif %}
+
+        {% for field in form.phones %}
+        {{ field }}
+        {% endfor %}
+
+
+        {{ form.id }}
+
+        {{ form.csrf_token }}

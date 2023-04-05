@@ -1,11 +1,18 @@
 from flask import Flask, redirect, url_for
+from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user, logout_user
 from functools import wraps
+import os
 
 from flask_cors import CORS
 
 app = Flask(__name__)
+
+CSRFProtect(app)
+
+ALLOWED_EXTENSIONS_FILE = set(['pdf','jpg','jpeg','gif','png'])
+app.config['UPLOAD_FOLDER'] = os.path.realpath('.') + '/my_app/static/uploads'
 
 app.config.from_object('configuration.DevelopmentConfig')
 db = SQLAlchemy(app)
@@ -43,6 +50,8 @@ from my_app.product.category import category
 from my_app.rest_api.product_api import product_view
 from my_app.rest_api.category_api import category_view
 
+#general
+import my_app.general.error_handle
 
 # importar las vistas
 app.register_blueprint(product)

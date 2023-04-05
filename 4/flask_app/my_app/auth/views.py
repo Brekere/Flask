@@ -9,7 +9,7 @@ auth = Blueprint('auth', __name__)
 @auth.route('/register', methods=('GET', 'POST'))
 def register():
 
-    form = RegisterForm(meta={'csrf': False})
+    form = RegisterForm() #meta={'csrf': False}
 
     if form.validate_on_submit():
 
@@ -31,7 +31,7 @@ def register():
 
 @auth.route('/login', methods=('GET', 'POST'))
 def login():
-    form = LoginForm(meta={'csrf': False})
+    form = LoginForm() #meta={'csrf': False}
 
     if form.validate_on_submit():
 
