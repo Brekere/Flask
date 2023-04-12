@@ -47,7 +47,10 @@ def create():
 
     if form.validate_on_submit():
         # Crear un registro
-        p = Product(request.form['name'], request.form['price'], request.form['category_id'], request.form['file'])
+        p = Product(request.form['name'], 
+                    request.form['price'], 
+                    request.form['category_id'], 
+                    request.form['file'])
         db.session.add(p)
         db.session.commit()
         flash("Producto creado con exito")
